@@ -14,8 +14,6 @@ services:
         generateValue: true
       - key: PORT
         value: 3000
-    buildCommand: bun install && bun run build
-    startCommand: bun run start
 
 databases:
   # PostgreSQL Database
