@@ -1,31 +1,47 @@
 services:
   db:
     image: postgres:16
+    container_name: insight-manager-db
+    restart: unless-stopped
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-postgres}
       POSTGRES_DB: insight_manager
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
   app:
     build: .
+    container_name: insight-manager-app
+    restart: unless-stopped
     ports:
-      - "3000:3000"
+      - "80:3000"
     environment:
       DB_HOST: db
       DB_PORT: 5432
       DB_USER: postgres
-      DB_PASSWORD: postgres
+      DB_PASSWORD: ${DB_PASSWORD:-postgres}
       DB_NAME: insight_manager
-      JWT_SECRET: your-secret-key-change-in-production
+      JWT_SECRET: ${JWT_SECRET:-your-secret-key-change-in-production}
       PORT: 3000
+      NODE_ENV: production
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     volumes:
       - ./uploads:/app/uploads
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
 volumes:
   postgres_data:

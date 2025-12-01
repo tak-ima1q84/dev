@@ -1,8 +1,8 @@
-# インサイト管理ツール v3
+# インサイト管理ツール v4
 
 モバイルアプリに表示される「インサイト（通知・マーケティングカード）」のコンテンツデータ、表示ロジック、関連画像を管理するWebアプリケーションです。
 
-**v3の新機能**: Render Web App + PostgreSQL対応
+**v4の新機能**: AWS Lightsail対応 (Docker Compose)
 
 ## 技術スタック
 
@@ -11,8 +11,8 @@
 - **Frontend**: React + Vite
 - **Database**: PostgreSQL 16
 - **ORM**: Drizzle ORM
-- **Deployment**: Render (Web App + PostgreSQL)
-- **Container**: Docker (local development)
+- **Deployment**: AWS Lightsail (Docker Compose)
+- **Container**: Docker + Docker Compose
 - **Authentication**: JWT
 
 ## 主な機能
@@ -60,27 +60,30 @@
 
 ## デプロイ
 
-### Render へのデプロイ（本番環境）
+### AWS Lightsail へのデプロイ（本番環境）
 
-詳細な手順は [RENDER_DEPLOYMENT.md](./RENDER_DEPLOYMENT.md) を参照してください。
+詳細な手順は [LIGHTSAIL_DEPLOYMENT.md](./LIGHTSAIL_DEPLOYMENT.md) を参照してください。
 
-**クイックスタート**:
-1. GitHubにコードをプッシュ
-2. Renderで「New Blueprint」を選択
-3. リポジトリを接続（`render.yaml`が自動検出されます）
-4. デプロイ後、Shellで以下を実行:
+**クイックスタート** (15分):
+1. Lightsailでインスタンス作成 (Ubuntu 22.04, $10/月)
+2. Docker & Docker Composeをインストール
+3. リポジトリをクローン
+4. `docker-compose up -d` で起動
+5. データベース初期化:
    ```bash
-   bun run db:push
-   bun run db:seed
+   docker-compose exec app bun run db:push
+   docker-compose exec app bun run db:seed
    ```
+
+詳細: [QUICKSTART_LIGHTSAIL.md](./QUICKSTART_LIGHTSAIL.md)
 
 ## セットアップ
 
 ### 前提条件
 
 - Bun v1.x以上
-- Docker & Docker Compose（ローカル開発用）
-- Render アカウント（本番デプロイ用）
+- Docker & Docker Compose
+- AWS アカウント（本番デプロイ用）
 
 ### ローカル開発
 

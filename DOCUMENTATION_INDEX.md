@@ -1,6 +1,6 @@
-# Documentation Index
+# Documentation Index - v4
 
-Complete guide to all documentation files in insight-manager-v3.
+Complete guide to all documentation files in insight-manager-v4 (AWS Lightsail).
 
 ---
 
@@ -8,79 +8,33 @@ Complete guide to all documentation files in insight-manager-v3.
 
 ### For First-Time Users
 
-1. **QUICKSTART_RENDER.md** ⭐ START HERE
-   - 5-minute deployment guide
+1. **QUICKSTART_LIGHTSAIL.md** ⭐ START HERE
+   - 15-minute deployment guide
    - Step-by-step instructions
    - Perfect for beginners
-   - **Time:** 5 minutes
-
-2. **DEPLOYMENT_STEPS.md**
-   - Visual step-by-step guide
-   - Screenshots descriptions
-   - Troubleshooting tips
-   - **Time:** 10 minutes
-
-3. **QUICK_REFERENCE.md**
-   - Commands cheat sheet
-   - API endpoints
-   - Environment variables
-   - **Time:** 2 minutes
-
----
-
-## 📚 Comprehensive Guides
-
-### Deployment & Setup
-
-4. **RENDER_DEPLOYMENT.md**
-   - Complete deployment guide
-   - Detailed explanations
-   - Advanced configurations
-   - Troubleshooting section
-   - **Time:** 30 minutes
-   - **When:** Need detailed information
-
-5. **DEPLOYMENT_CHECKLIST.md**
-   - Pre-launch checklist
-   - Feature verification
-   - Security hardening
-   - Production readiness
-   - **Time:** 20 minutes
-   - **When:** Before going live
-
-### Migration & Upgrades
-
-6. **MIGRATION_GUIDE.md**
-   - v2 to v3 migration
-   - Database migration
-   - Compatibility info
-   - Rollback procedures
    - **Time:** 15 minutes
-   - **When:** Upgrading from v2
 
-7. **WHATS_NEW_V3.md**
-   - Version changes
-   - New features
-   - Breaking changes
-   - Comparison with v2
+2. **LIGHTSAIL_DEPLOYMENT.md**
+   - Complete deployment guide
+   - Two deployment options
+   - SSL/HTTPS setup
+   - Troubleshooting
+   - **Time:** 30-60 minutes
+
+3. **DEPLOYMENT_COMPARISON.md**
+   - Compare v2, v3, v4
+   - Cost analysis
+   - Feature comparison
+   - Decision guide
    - **Time:** 10 minutes
-   - **When:** Understanding v3
 
 ---
 
-## 🔧 Technical Documentation
+## 📚 Core Documentation
 
-### Architecture & Design
+### Deployment Guides
 
-8. **PROJECT_SUMMARY_V3.md**
-   - Technical architecture
-   - Database schema
-   - API documentation
-   - Technology stack
-   - **Time:** 45 minutes
-   - **When:** Deep technical understanding
-
-9. **README.md**
+4. **README.md**
    - Project overview
    - Features list
    - Basic setup
@@ -88,173 +42,158 @@ Complete guide to all documentation files in insight-manager-v3.
    - **Time:** 15 minutes
    - **When:** General overview
 
-10. **design.md**
-    - System design
-    - Architecture decisions
-    - Data models
-    - **Time:** 20 minutes
-    - **When:** Understanding design
+5. **README_V4_SUMMARY.md**
+   - v4 summary
+   - Key changes
+   - Quick reference
+   - **Time:** 5 minutes
+   - **When:** Quick v4 overview
 
-### Requirements & Tasks
+### Configuration
 
-11. **requirements.md**
+6. **docker-compose.yml**
+   - Service definitions
+   - Lightsail optimized
+   - Health checks
+   - Auto-restart policies
+   - **Format:** YAML
+   - **When:** Customizing deployment
+
+7. **.env.example**
+   - Environment template
+   - Variable descriptions
+   - Security notes
+   - **Format:** ENV
+   - **When:** Setting up environment
+
+8. **Dockerfile**
+   - Container definition
+   - Build instructions
+   - **Format:** Dockerfile
+   - **When:** Customizing build
+
+---
+
+## 🔧 Technical Documentation
+
+### Architecture
+
+9. **design.md**
+   - System design
+   - Architecture decisions
+   - Data models
+   - **Time:** 20 minutes
+   - **When:** Understanding design
+
+10. **requirements.md**
     - Functional requirements
     - User stories
     - Acceptance criteria
     - **Time:** 15 minutes
     - **When:** Understanding requirements
 
-12. **tasks.md**
+11. **tasks.md**
     - Development tasks
     - Implementation checklist
     - Progress tracking
     - **Time:** 10 minutes
     - **When:** Development planning
 
----
-
-## 📖 Reference Documentation
-
-### Quick References
-
-13. **README_V3_SUMMARY.md**
-    - Quick v3 summary
-    - Key changes
-    - Success criteria
-    - **Time:** 5 minutes
-    - **When:** Quick overview
-
-14. **QUICK_REFERENCE.md** (mentioned above)
-    - Commands
-    - Endpoints
-    - Environment vars
-    - **Time:** 2 minutes
-    - **When:** Need quick info
-
 ### Development
 
-15. **DEVELOPMENT.md**
+12. **DEVELOPMENT.md**
     - Development setup
     - Local environment
     - Testing procedures
     - **Time:** 20 minutes
     - **When:** Local development
 
-16. **QUICKSTART.md**
-    - Original quickstart
-    - Local setup
-    - Docker Compose
-    - **Time:** 10 minutes
-    - **When:** Local development
-
 ---
 
-## 📋 Configuration Files
+## 📖 Reference Documentation
 
-### Deployment Configuration
+### Deployment Options
 
-17. **render.yaml**
-    - Render Blueprint config
-    - Service definitions
-    - Environment variables
-    - **Format:** YAML
-    - **When:** Customizing deployment
+13. **DEPLOYMENT_COMPARISON.md** (mentioned above)
+    - v2 vs v3 vs v4
+    - Cost breakdown
+    - Use case recommendations
+    - Decision matrix
+    - **Time:** 10 minutes
+    - **When:** Choosing deployment option
 
-18. **.env.example**
-    - Environment template
-    - Variable descriptions
-    - Example values
-    - **Format:** ENV
-    - **When:** Setting up environment
+### Legacy Documentation
 
-### Docker Configuration
+14. **RENDER_DEPLOYMENT.md**
+    - Render deployment (v3)
+    - Kept for reference
+    - **Time:** 30 minutes
+    - **When:** Considering Render
 
-19. **Dockerfile**
-    - Docker image definition
-    - Build instructions
-    - **Format:** Dockerfile
-    - **When:** Customizing Docker build
-
-20. **docker-compose.yml**
-    - Local development setup
-    - Service definitions
-    - **Format:** YAML
-    - **When:** Local development
-
-21. **.dockerignore**
-    - Docker ignore rules
-    - Build optimization
-    - **Format:** Text
-    - **When:** Optimizing builds
-
-### Git Configuration
-
-22. **.gitignore**
-    - Git ignore rules
-    - Security best practices
-    - **Format:** Text
-    - **When:** Version control
+15. **QUICKSTART_RENDER.md**
+    - Render quick start (v3)
+    - Kept for reference
+    - **Time:** 5 minutes
+    - **When:** Considering Render
 
 ---
 
 ## 🎯 Documentation by Use Case
 
-### "I want to deploy to Render"
-1. ⭐ QUICKSTART_RENDER.md
-2. DEPLOYMENT_STEPS.md
-3. DEPLOYMENT_CHECKLIST.md
-4. RENDER_DEPLOYMENT.md (if issues)
+### "I want to deploy to AWS Lightsail"
+1. ⭐ QUICKSTART_LIGHTSAIL.md
+2. LIGHTSAIL_DEPLOYMENT.md (if issues)
+3. README_V4_SUMMARY.md (overview)
+4. .env.example (configuration)
 
-### "I'm migrating from v2"
-1. WHATS_NEW_V3.md
-2. MIGRATION_GUIDE.md
-3. QUICKSTART_RENDER.md
-4. DEPLOYMENT_CHECKLIST.md
+### "I'm choosing a deployment platform"
+1. DEPLOYMENT_COMPARISON.md
+2. README_V4_SUMMARY.md
+3. QUICKSTART_LIGHTSAIL.md (if choosing v4)
 
 ### "I want to develop locally"
 1. README.md
 2. DEVELOPMENT.md
-3. QUICKSTART.md
+3. docker-compose.yml
 4. .env.example
 
 ### "I need technical details"
-1. PROJECT_SUMMARY_V3.md
+1. README_V4_SUMMARY.md
 2. design.md
 3. requirements.md
-4. README.md
+4. docker-compose.yml
 
 ### "I'm troubleshooting"
-1. RENDER_DEPLOYMENT.md (Troubleshooting section)
-2. DEPLOYMENT_STEPS.md (Troubleshooting section)
-3. QUICK_REFERENCE.md
-4. GitHub Issues
+1. LIGHTSAIL_DEPLOYMENT.md (Troubleshooting section)
+2. QUICKSTART_LIGHTSAIL.md (Troubleshooting section)
+3. README_V4_SUMMARY.md (Common issues)
 
 ### "I need quick info"
-1. ⭐ QUICK_REFERENCE.md
-2. README_V3_SUMMARY.md
-3. WHATS_NEW_V3.md
+1. ⭐ README_V4_SUMMARY.md
+2. DEPLOYMENT_COMPARISON.md
+3. QUICKSTART_LIGHTSAIL.md
 
 ---
 
 ## 📊 Documentation Statistics
 
 ```
-Total Documents: 22
-Total Words: ~25,000
-Total Reading Time: ~4 hours
-Quick Start Time: 5 minutes
+Total Documents: 15
+Focus: AWS Lightsail deployment
+Quick Start Time: 15 minutes
+Full Setup Time: 30-60 minutes
 ```
 
 ### By Category
 
 | Category | Documents | Time |
 |----------|-----------|------|
-| Getting Started | 3 | 17 min |
-| Deployment | 2 | 50 min |
-| Migration | 2 | 25 min |
-| Technical | 4 | 90 min |
-| Reference | 4 | 37 min |
-| Configuration | 7 | - |
+| Getting Started | 3 | 55 min |
+| Core Documentation | 2 | 20 min |
+| Configuration | 3 | - |
+| Technical | 3 | 45 min |
+| Reference | 3 | 45 min |
+| Legacy (v3) | 2 | 35 min |
 
 ---
 
@@ -262,28 +201,25 @@ Quick Start Time: 5 minutes
 
 ### Path 1: Quick Deploy (30 minutes)
 ```
-1. QUICKSTART_RENDER.md (5 min)
-2. Deploy to Render (10 min)
-3. DEPLOYMENT_STEPS.md (10 min)
-4. QUICK_REFERENCE.md (5 min)
+1. QUICKSTART_LIGHTSAIL.md (15 min)
+2. Deploy to Lightsail (10 min)
+3. README_V4_SUMMARY.md (5 min)
 ```
 
 ### Path 2: Comprehensive Setup (2 hours)
 ```
 1. README.md (15 min)
-2. WHATS_NEW_V3.md (10 min)
-3. RENDER_DEPLOYMENT.md (30 min)
-4. DEPLOYMENT_CHECKLIST.md (20 min)
-5. PROJECT_SUMMARY_V3.md (45 min)
+2. DEPLOYMENT_COMPARISON.md (10 min)
+3. LIGHTSAIL_DEPLOYMENT.md (60 min)
+4. README_V4_SUMMARY.md (5 min)
+5. Test and configure (30 min)
 ```
 
-### Path 3: Migration from v2 (1 hour)
+### Path 3: Platform Comparison (30 minutes)
 ```
-1. WHATS_NEW_V3.md (10 min)
-2. MIGRATION_GUIDE.md (15 min)
-3. QUICKSTART_RENDER.md (5 min)
-4. Deploy and test (20 min)
-5. DEPLOYMENT_CHECKLIST.md (10 min)
+1. DEPLOYMENT_COMPARISON.md (10 min)
+2. README_V4_SUMMARY.md (5 min)
+3. QUICKSTART_LIGHTSAIL.md (15 min)
 ```
 
 ### Path 4: Local Development (45 minutes)
@@ -300,35 +236,39 @@ Quick Start Time: 5 minutes
 
 ### By Topic
 
-**Authentication & Security**
-- README.md → Authentication section
-- PROJECT_SUMMARY_V3.md → Security Features
-- DEPLOYMENT_CHECKLIST.md → Security Hardening
+**AWS Lightsail Deployment**
+- QUICKSTART_LIGHTSAIL.md → Quick start
+- LIGHTSAIL_DEPLOYMENT.md → Complete guide
+- README_V4_SUMMARY.md → Overview
 
-**Database**
-- PROJECT_SUMMARY_V3.md → Database Schema
-- RENDER_DEPLOYMENT.md → Database Management
-- QUICK_REFERENCE.md → Database Commands
+**Cost & Pricing**
+- DEPLOYMENT_COMPARISON.md → Cost comparison
+- README_V4_SUMMARY.md → Cost breakdown
+- LIGHTSAIL_DEPLOYMENT.md → Cost estimation
 
-**API Endpoints**
-- PROJECT_SUMMARY_V3.md → API Endpoints
-- QUICK_REFERENCE.md → API Endpoints
-- README.md → API エンドポイント
+**Docker Configuration**
+- docker-compose.yml → Service definitions
+- Dockerfile → Container build
+- LIGHTSAIL_DEPLOYMENT.md → Docker setup
 
 **Environment Variables**
 - .env.example → All variables
-- QUICK_REFERENCE.md → Environment Variables
-- RENDER_DEPLOYMENT.md → Environment Variables Reference
+- QUICKSTART_LIGHTSAIL.md → Quick setup
+- LIGHTSAIL_DEPLOYMENT.md → Detailed config
+
+**SSL/HTTPS Setup**
+- LIGHTSAIL_DEPLOYMENT.md → SSL Setup section
+- QUICKSTART_LIGHTSAIL.md → Optional HTTPS
 
 **Troubleshooting**
-- RENDER_DEPLOYMENT.md → Troubleshooting
-- DEPLOYMENT_STEPS.md → Troubleshooting
-- QUICK_REFERENCE.md → Troubleshooting
+- LIGHTSAIL_DEPLOYMENT.md → Troubleshooting
+- QUICKSTART_LIGHTSAIL.md → Common issues
+- README_V4_SUMMARY.md → Quick fixes
 
-**Costs & Pricing**
-- RENDER_DEPLOYMENT.md → Cost Estimation
-- WHATS_NEW_V3.md → Cost Analysis
-- QUICK_REFERENCE.md → Pricing
+**Monitoring & Maintenance**
+- LIGHTSAIL_DEPLOYMENT.md → Monitoring section
+- README_V4_SUMMARY.md → Maintenance tasks
+- QUICKSTART_LIGHTSAIL.md → Maintenance commands
 
 ---
 
@@ -336,25 +276,25 @@ Quick Start Time: 5 minutes
 
 ### Most Important Documents (Top 5)
 
-1. **QUICKSTART_RENDER.md** ⭐⭐⭐⭐⭐
+1. **QUICKSTART_LIGHTSAIL.md** ⭐⭐⭐⭐⭐
    - Essential for deployment
    - Start here
 
-2. **QUICK_REFERENCE.md** ⭐⭐⭐⭐⭐
-   - Daily reference
-   - Keep handy
+2. **README_V4_SUMMARY.md** ⭐⭐⭐⭐⭐
+   - Quick reference
+   - Overview of v4
 
-3. **RENDER_DEPLOYMENT.md** ⭐⭐⭐⭐
+3. **LIGHTSAIL_DEPLOYMENT.md** ⭐⭐⭐⭐
    - Comprehensive guide
    - Troubleshooting
 
-4. **DEPLOYMENT_CHECKLIST.md** ⭐⭐⭐⭐
-   - Pre-launch verification
-   - Quality assurance
+4. **DEPLOYMENT_COMPARISON.md** ⭐⭐⭐⭐
+   - Choose platform
+   - Cost analysis
 
-5. **PROJECT_SUMMARY_V3.md** ⭐⭐⭐
-   - Technical reference
-   - Architecture
+5. **docker-compose.yml** ⭐⭐⭐
+   - Configuration
+   - Customization
 
 ---
 
@@ -366,8 +306,8 @@ Quick Start Time: 5 minutes
 - Found error? Submit correction
 
 ### Technical Support
-- Render issues: https://render.com/docs
-- Bun issues: https://bun.sh/docs
+- AWS Lightsail: https://lightsail.aws.amazon.com/ls/docs
+- Docker: https://docs.docker.com
 - Application issues: GitHub Issues
 
 ---
@@ -376,7 +316,7 @@ Quick Start Time: 5 minutes
 
 ### Last Updated
 - All documents: December 2025
-- Version: 3.0.0
+- Version: 4.0.0
 - Status: Current ✅
 
 ### Update Frequency
@@ -388,43 +328,75 @@ Quick Start Time: 5 minutes
 
 ## 🎯 Next Steps
 
-1. **New User?** → Start with QUICKSTART_RENDER.md
-2. **Migrating?** → Read MIGRATION_GUIDE.md
+1. **New User?** → Start with QUICKSTART_LIGHTSAIL.md
+2. **Choosing Platform?** → Read DEPLOYMENT_COMPARISON.md
 3. **Developing?** → Check DEVELOPMENT.md
-4. **Deploying?** → Follow DEPLOYMENT_STEPS.md
-5. **Troubleshooting?** → See RENDER_DEPLOYMENT.md
+4. **Deploying?** → Follow QUICKSTART_LIGHTSAIL.md
+5. **Troubleshooting?** → See LIGHTSAIL_DEPLOYMENT.md
 
 ---
 
 ## 📚 External Resources
 
 ### Official Documentation
-- Render: https://render.com/docs
+- AWS Lightsail: https://lightsail.aws.amazon.com/ls/docs
+- Docker: https://docs.docker.com
+- Docker Compose: https://docs.docker.com/compose
+- PostgreSQL: https://www.postgresql.org/docs
 - Bun: https://bun.sh/docs
-- Drizzle ORM: https://orm.drizzle.team
 - ElysiaJS: https://elysiajs.com
 - React: https://react.dev
 - Vite: https://vitejs.dev
 
 ### Community
-- Render Community: https://community.render.com
+- AWS Forums: https://forums.aws.amazon.com
+- Docker Community: https://forums.docker.com
 - GitHub Discussions: (your repo)
-- Stack Overflow: Tag with 'render' and 'bun'
+- Stack Overflow: Tag with 'aws-lightsail' and 'docker'
 
 ---
 
 ## ✅ Documentation Checklist
 
 Before deployment, ensure you've read:
-- [ ] QUICKSTART_RENDER.md
-- [ ] DEPLOYMENT_STEPS.md
-- [ ] DEPLOYMENT_CHECKLIST.md
-- [ ] QUICK_REFERENCE.md
+- [ ] QUICKSTART_LIGHTSAIL.md
+- [ ] README_V4_SUMMARY.md
+- [ ] .env.example
+- [ ] docker-compose.yml
 
 For production:
-- [ ] RENDER_DEPLOYMENT.md
-- [ ] PROJECT_SUMMARY_V3.md
+- [ ] LIGHTSAIL_DEPLOYMENT.md
+- [ ] DEPLOYMENT_COMPARISON.md
 - [ ] Security sections in all docs
+
+---
+
+## 🔄 Version-Specific Docs
+
+### v4 (Lightsail) - Current
+- QUICKSTART_LIGHTSAIL.md
+- LIGHTSAIL_DEPLOYMENT.md
+- README_V4_SUMMARY.md
+- DEPLOYMENT_COMPARISON.md
+
+### v3 (Render) - Reference Only
+- RENDER_DEPLOYMENT.md
+- QUICKSTART_RENDER.md
+- (Kept for users considering Render)
+
+### v2 (Local) - Reference Only
+- Original docker-compose.yml
+- (Kept for local development)
+
+---
+
+## 📊 Quick Comparison
+
+| Version | Platform | Docs | Status |
+|---------|----------|------|--------|
+| v2 | Local/Any | Basic | Reference |
+| v3 | Render | Comprehensive | Reference |
+| v4 | Lightsail | Comprehensive | **Current** ✅ |
 
 ---
 
@@ -433,6 +405,7 @@ For production:
 ---
 
 **This Index**: DOCUMENTATION_INDEX.md  
-**Version**: 3.0.0  
+**Version**: 4.0.0  
+**Platform**: AWS Lightsail  
 **Last Updated**: December 2025  
 **Status**: Complete ✅
