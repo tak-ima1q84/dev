@@ -1,5 +1,5 @@
 {
-  "name": "insight-manager-v4",
+  "name": "insight-manager-v6",
   "module": "index.ts",
   "type": "module",
   "private": true,
@@ -10,8 +10,7 @@
     "db:generate": "drizzle-kit generate",
     "db:migrate": "drizzle-kit migrate",
     "db:push": "drizzle-kit push",
-    "db:seed": "bun run src/db/seed.ts",
-    "postinstall": "bun run build"
+    "db:seed": "bun run src/db/seed.ts"
   },
   "devDependencies": {
     "@types/bun": "latest",

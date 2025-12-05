@@ -510,20 +510,41 @@ const InsightDetail: React.FC<{
   const handleUpdate = async (e: React.FormEvent) => {
     e.preventDefault();
     const token = localStorage.getItem('token');
+    
+    // Clean up the data before sending
+    const cleanedData = {
+      ...formData,
+      // Convert score to number or null
+      score: formData.score ? parseFloat(formData.score) : null,
+      // Ensure arrays are properly formatted
+      targetBanks: Array.isArray(formData.targetBanks) ? formData.targetBanks : [],
+      targetTables: Array.isArray(formData.targetTables) ? formData.targetTables : [],
+      storyImages: Array.isArray(formData.storyImages) 
+        ? formData.storyImages.filter((img: string) => img && img.trim() !== '') 
+        : [],
+      // Convert counts to numbers
+      displayCount: parseInt(formData.displayCount) || 1,
+      selectCount: parseInt(formData.selectCount) || 1,
+      creationNumber: parseInt(formData.creationNumber) || 1,
+    };
+    
     const res = await fetch(`/api/insights/${insight.id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`,
       },
-      body: JSON.stringify(formData),
+      body: JSON.stringify(cleanedData),
     });
+    
     if (res.ok) {
       alert('更新しました');
       setIsEditing(false);
       onSave();
     } else {
-      alert('更新に失敗しました');
+      const errorData = await res.json().catch(() => ({ error: 'Unknown error' }));
+      console.error('Update error:', errorData);
+      alert(`更新できませんでした: ${errorData.error || 'エラーが発生しました'}`);
     }
   };
 
@@ -1003,19 +1024,39 @@ const InsightForm: React.FC<{
     const url = isEdit ? `/api/insights/${insight.id}` : '/api/insights';
     const method = isEdit ? 'PUT' : 'POST';
     
+    // Clean up the data before sending
+    const cleanedData = {
+      ...formData,
+      // Convert score to number or null
+      score: formData.score ? parseFloat(formData.score) : null,
+      // Ensure arrays are properly formatted
+      targetBanks: Array.isArray(formData.targetBanks) ? formData.targetBanks : [],
+      targetTables: Array.isArray(formData.targetTables) ? formData.targetTables : [],
+      storyImages: Array.isArray(formData.storyImages) 
+        ? formData.storyImages.filter((img: string) => img && img.trim() !== '') 
+        : [],
+      // Convert counts to numbers
+      displayCount: parseInt(formData.displayCount) || 1,
+      selectCount: parseInt(formData.selectCount) || 1,
+      creationNumber: parseInt(formData.creationNumber) || 1,
+    };
+    
     const res = await fetch(url, {
       method,
       headers: {
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`,
       },
-      body: JSON.stringify(formData),
+      body: JSON.stringify(cleanedData),
     });
+    
     if (res.ok) {
       alert(isEdit ? '更新しました' : '登録しました');
       onSave();
     } else {
-      alert(isEdit ? '更新に失敗しました' : '登録に失敗しました');
+      const errorData = await res.json().catch(() => ({ error: 'Unknown error' }));
+      console.error('Update error:', errorData);
+      alert(isEdit ? `更新できませんでした: ${errorData.error || 'エラーが発生しました'}` : `登録できませんでした: ${errorData.error || 'エラーが発生しました'}`);
     }
   };
 

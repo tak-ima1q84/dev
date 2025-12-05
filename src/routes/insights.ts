@@ -74,24 +74,61 @@ export const insightRoutes = new Elysia({ prefix: '/api/insights' })
   })
   .post('/', async ({ body, set }) => {
     try {
-      const result = await db.insert(insights).values(body).returning();
+      // Validate and clean the data
+      const insertData = {
+        ...body,
+        // Ensure numeric fields are properly typed
+        creationNumber: body.creationNumber ? Number(body.creationNumber) : 1,
+        displayCount: body.displayCount ? Number(body.displayCount) : 1,
+        selectCount: body.selectCount ? Number(body.selectCount) : 1,
+        score: body.score ? String(body.score) : null,
+        // Ensure arrays are properly formatted
+        targetBanks: Array.isArray(body.targetBanks) ? body.targetBanks : [],
+        targetTables: Array.isArray(body.targetTables) ? body.targetTables : [],
+        storyImages: Array.isArray(body.storyImages) ? body.storyImages.filter((img: string) => img && img.trim() !== '') : [],
+      };
+      
+      const result = await db.insert(insights).values(insertData).returning();
       return result[0];
     } catch (error) {
+      console.error('Create error:', error);
       set.status = 400;
-      return { error: 'Failed to create insight' };
+      return { error: `Failed to create insight: ${error instanceof Error ? error.message : String(error)}` };
     }
   })
   .put('/:id', async ({ params, body, set }) => {
     try {
+      // Validate and clean the data
+      const updateData = {
+        ...body,
+        updatedAt: new Date(),
+        // Ensure numeric fields are properly typed
+        creationNumber: body.creationNumber ? Number(body.creationNumber) : undefined,
+        displayCount: body.displayCount ? Number(body.displayCount) : undefined,
+        selectCount: body.selectCount ? Number(body.selectCount) : undefined,
+        score: body.score ? String(body.score) : null,
+        // Ensure arrays are properly formatted
+        targetBanks: Array.isArray(body.targetBanks) ? body.targetBanks : [],
+        targetTables: Array.isArray(body.targetTables) ? body.targetTables : [],
+        storyImages: Array.isArray(body.storyImages) ? body.storyImages.filter((img: string) => img && img.trim() !== '') : [],
+      };
+      
       const result = await db
         .update(insights)
-        .set({ ...body, updatedAt: new Date() })
+        .set(updateData)
         .where(eq(insights.id, Number(params.id)))
         .returning();
+      
+      if (result.length === 0) {
+        set.status = 404;
+        return { error: 'Insight not found' };
+      }
+      
       return result[0];
     } catch (error) {
+      console.error('Update error:', error);
       set.status = 400;
-      return { error: 'Failed to update insight' };
+      return { error: `Failed to update insight: ${error instanceof Error ? error.message : String(error)}` };
     }
   })
   .delete('/:id', async ({ params, set }) => {

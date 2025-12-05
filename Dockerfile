@@ -5,13 +5,13 @@ WORKDIR /app
 # Copy package files
 COPY package.json bun.lock ./
 
-# Install dependencies
-RUN bun install
+# Install dependencies (without postinstall)
+RUN bun install --ignore-scripts
 
 # Copy source code
 COPY . .
 
-# Build frontend
+# Build frontend explicitly
 RUN bun run build
 
 # Create uploads directory
