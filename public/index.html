@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>データカタログ</title>
+  <link rel="stylesheet" href="/public/style.css">
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1>📊 データカタログ</h1>
+      <div class="user-info">
+        <span id="currentUser">ユーザー: admin (編集者)</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <!-- List View -->
+    <div id="listView" class="view active">
+      <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="テーブル名、カラム名で検索...">
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-primary" onclick="showCreateModal()">+ 新規テーブル作成</button>
+      </div>
+
+      <div class="table-list" id="tableList">
+        <div class="empty-state">読み込み中...</div>
+      </div>
+    </div>
+
+    <!-- Detail View -->
+    <div id="detailView" class="view">
+      <div class="detail-header">
+        <button class="btn" onclick="showListView()">← 一覧に戻る</button>
+        <div class="detail-actions">
+          <button class="btn btn-success" onclick="downloadCSV()">CSV ダウンロード</button>
+          <button class="btn btn-warning" onclick="editTable()">編集</button>
+          <button class="btn btn-danger" onclick="deleteTable()">削除</button>
+        </div>
+      </div>
+
+      <div class="detail-content">
+        <h2 id="detailTitle">テーブル詳細</h2>
+        
+        <div class="info-section">
+          <h3>テーブル情報</h3>
+          <table class="info-table" id="tableInfo">
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <div class="info-section">
+          <h3>カラム定義 <button class="btn btn-sm btn-primary" onclick="showAddColumnModal()">+ カラム追加</button></h3>
+          <div class="table-wrapper">
+            <table class="columns-table" id="columnsTable">
+              <thead>
+                <tr>
+                  <th>カラム物理名</th>
+                  <th>カラム論理名</th>
+                  <th>データ型</th>
+                  <th>データ長</th>
+                  <th>PK</th>
+                  <th>FK</th>
+                  <th>NULL</th>
+                  <th>デフォルト値</th>
+                  <th>備考</th>
+                  <th>操作</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Create/Edit Table Modal -->
+  <div class="modal" id="tableModal">
+    <div class="modal-content">
+      <h2 id="modalTitle">新規テーブル作成</h2>
+      <form id="tableForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label>システム名 *</label>
+            <input type="text" name="system_name" required>
+          </div>
+          <div class="form-group">
+            <label>サブシステム名</label>
+            <input type="text" name="subsystem_name">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>スキーマ名</label>
+            <input type="text" name="schema_name">
+          </div>
+          <div class="form-group">
+            <label>作成者/更新者 *</label>
+            <input type="text" name="creator" value="admin" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>テーブル物理名 *</label>
+            <input type="text" name="table_physical_name" required>
+          </div>
+          <div class="form-group">
+            <label>テーブル論理名 *</label>
+            <input type="text" name="table_logical_name" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>テーブル概要</label>
+          <textarea name="table_description" rows="3"></textarea>
+        </div>
+        <div style="display: flex; gap: 10px; margin-top: 20px;">
+          <button type="submit" class="btn btn-primary">保存</button>
+          <button type="button" class="btn" onclick="closeModal('tableModal')">キャンセル</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Add Column Modal -->
+  <div class="modal" id="columnModal">
+    <div class="modal-content">
+      <h2>カラム追加</h2>
+      <form id="columnForm">
+        <div class="form-row">
+          <div class="form-group">
+            <label>カラム物理名 *</label>
+            <input type="text" name="column_physical_name" required>
+          </div>
+          <div class="form-group">
+            <label>カラム論理名 *</label>
+            <input type="text" name="column_logical_name" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>データ型 *</label>
+            <input type="text" name="data_type" placeholder="VARCHAR, INTEGER, etc." required>
+          </div>
+          <div class="form-group">
+            <label>データ長</label>
+            <input type="text" name="data_length" placeholder="例: 100">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label><input type="checkbox" name="is_pk"> 主キー (PK)</label>
+          </div>
+          <div class="form-group">
+            <label><input type="checkbox" name="is_fk"> 外部キー (FK)</label>
+          </div>
+          <div class="form-group">
+            <label><input type="checkbox" name="is_nullable" checked> NULL許可</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>デフォルト値</label>
+          <input type="text" name="default_value">
+        </div>
+        <div class="form-group">
+          <label>備考</label>
+          <textarea name="remarks" rows="2"></textarea>
+        </div>
+        <div style="display: flex; gap: 10px; margin-top: 20px;">
+          <button type="submit" class="btn btn-primary">追加</button>
+          <button type="button" class="btn" onclick="closeModal('columnModal')">キャンセル</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="/public/app.js"></script>
+</body>
+</html>

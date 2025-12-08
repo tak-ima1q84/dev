@@ -1,0 +1,8 @@
+node_modules
+*.db
+*.db-journal
+backups
+.git
+.gitignore
+README.md
+*.md
