@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./catalog.db:/app/catalog.db
+      - ./backups:/app/backups
+    environment:
+      - PORT=3000
+    restart: unless-stopped
