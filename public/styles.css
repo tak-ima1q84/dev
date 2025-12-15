@@ -287,7 +287,8 @@ tbody tr td button:hover {
 }
 
 .checkbox-group {
-  grid-column: span 1;
+  grid-column: span 2;
+  min-width: 300px;
 }
 
 .checkbox-list {
@@ -297,16 +298,19 @@ tbody tr td button:hover {
   padding: 0.75rem;
   background: white;
   border-radius: 4px;
+  min-width: 280px;
+  width: 100%;
 }
 
 .checkbox-item {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   padding: 0.35rem 0;
   font-weight: normal;
   font-size: 0.9rem;
   cursor: pointer;
   user-select: none;
+  width: 100%;
 }
 
 .checkbox-item:hover {
@@ -324,4 +328,53 @@ tbody tr td button:hover {
 
 .checkbox-item span {
   line-height: 1.4;
+  width: 85%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Form checkbox containers - wider for insight forms */
+.form-checkbox-container {
+  margin-top: 0.5rem;
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  padding: 0.75rem;
+  background: white;
+  border-radius: 4px;
+  min-width: 400px;
+  width: 100%;
+}
+
+.form-checkbox-item {
+  display: flex;
+  align-items: flex-start;
+  padding: 0.4rem 0;
+  font-weight: normal;
+  font-size: 0.9rem;
+  cursor: pointer;
+  user-select: none;
+  width: 100%;
+}
+
+.form-checkbox-item:hover {
+  background: #f8f9fa;
+  border-radius: 3px;
+}
+
+.form-checkbox-item input[type="checkbox"] {
+  margin: 0;
+  margin-right: 0.75rem;
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.form-checkbox-item span {
+  line-height: 1.4;
+  width: 90%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }

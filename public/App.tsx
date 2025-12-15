@@ -1195,9 +1195,9 @@ const InsightForm: React.FC<{
 
         <label>
           金融データ利用銀行（複数選択可）:
-          <div style={{ marginTop: '0.5rem', maxHeight: '150px', overflowY: 'auto', border: '1px solid #ddd', padding: '0.5rem' }}>
+          <div className="form-checkbox-container">
             {getMasterOptions('target_banks').map((opt) => (
-              <label key={opt.id} style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'normal' }}>
+              <label key={opt.id} className="form-checkbox-item">
                 <input
                   type="checkbox"
                   checked={formData.targetBanks.includes(opt.optionValue)}
@@ -1209,7 +1209,7 @@ const InsightForm: React.FC<{
                     }
                   }}
                 />
-                {' '}{opt.optionLabel}
+                <span>{opt.optionLabel}</span>
               </label>
             ))}
           </div>
@@ -1226,9 +1226,9 @@ const InsightForm: React.FC<{
 
         <label>
           使用データテーブル（複数選択可）:
-          <div style={{ marginTop: '0.5rem', maxHeight: '150px', overflowY: 'auto', border: '1px solid #ddd', padding: '0.5rem' }}>
+          <div className="form-checkbox-container">
             {getMasterOptions('target_tables').map((opt) => (
-              <label key={opt.id} style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 'normal' }}>
+              <label key={opt.id} className="form-checkbox-item">
                 <input
                   type="checkbox"
                   checked={formData.targetTables.includes(opt.optionValue)}
@@ -1240,7 +1240,7 @@ const InsightForm: React.FC<{
                     }
                   }}
                 />
-                {' '}{opt.optionLabel}
+                <span>{opt.optionLabel}</span>
               </label>
             ))}
           </div>
