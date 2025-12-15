@@ -74,18 +74,24 @@ export const insightRoutes = new Elysia({ prefix: '/api/insights' })
   })
   .post('/', async ({ body, set }) => {
     try {
+      const bodyData = body as any;
       // Validate and clean the data
       const insertData = {
-        ...body,
+        ...bodyData,
         // Ensure numeric fields are properly typed
-        creationNumber: body.creationNumber ? Number(body.creationNumber) : 1,
-        displayCount: body.displayCount ? Number(body.displayCount) : 1,
-        selectCount: body.selectCount ? Number(body.selectCount) : 1,
-        score: body.score ? String(body.score) : null,
+        creationNumber: bodyData.creationNumber ? Number(bodyData.creationNumber) : 1,
+        displayCount: bodyData.displayCount ? Number(bodyData.displayCount) : 1,
+        selectCount: bodyData.selectCount ? Number(bodyData.selectCount) : 1,
+        score: bodyData.score ? String(bodyData.score) : null,
         // Ensure arrays are properly formatted
-        targetBanks: Array.isArray(body.targetBanks) ? body.targetBanks : [],
-        targetTables: Array.isArray(body.targetTables) ? body.targetTables : [],
-        storyImages: Array.isArray(body.storyImages) ? body.storyImages.filter((img: string) => img && img.trim() !== '') : [],
+        targetBanks: Array.isArray(bodyData.targetBanks) ? bodyData.targetBanks : [],
+        targetTables: Array.isArray(bodyData.targetTables) ? bodyData.targetTables : [],
+        storyImages: Array.isArray(bodyData.storyImages) ? bodyData.storyImages.filter((img: string) => img && img.trim() !== '') : [],
+        // Ensure date fields are properly formatted or null
+        startDate: bodyData.startDate || null,
+        updateDate: bodyData.updateDate || null,
+        endDate: bodyData.endDate || null,
+        maintenanceDate: bodyData.maintenanceDate || '2099-12-31',
       };
       
       const result = await db.insert(insights).values(insertData).returning();
@@ -98,20 +104,71 @@ export const insightRoutes = new Elysia({ prefix: '/api/insights' })
   })
   .put('/:id', async ({ params, body, set }) => {
     try {
-      // Validate and clean the data
-      const updateData = {
-        ...body,
-        updatedAt: new Date(),
-        // Ensure numeric fields are properly typed
-        creationNumber: body.creationNumber ? Number(body.creationNumber) : undefined,
-        displayCount: body.displayCount ? Number(body.displayCount) : undefined,
-        selectCount: body.selectCount ? Number(body.selectCount) : undefined,
-        score: body.score ? String(body.score) : null,
-        // Ensure arrays are properly formatted
-        targetBanks: Array.isArray(body.targetBanks) ? body.targetBanks : [],
-        targetTables: Array.isArray(body.targetTables) ? body.targetTables : [],
-        storyImages: Array.isArray(body.storyImages) ? body.storyImages.filter((img: string) => img && img.trim() !== '') : [],
+      const bodyData = body as any;
+      
+      // Helper function to safely handle date values
+      const formatDateValue = (value: any) => {
+        if (!value || value === '') return null;
+        if (typeof value === 'string') return value;
+        if (value instanceof Date) return value.toISOString().split('T')[0]; // Convert to YYYY-MM-DD format
+        return null;
       };
+      
+      // Validate and clean the data - explicitly handle each field
+      const updateData: any = {};
+      
+      // Only include fields that are actually provided
+      if (bodyData.creationNumber !== undefined) updateData.creationNumber = Number(bodyData.creationNumber);
+      if (bodyData.subject !== undefined) updateData.subject = bodyData.subject;
+      if (bodyData.insightId !== undefined) updateData.insightId = bodyData.insightId;
+      if (bodyData.status !== undefined) updateData.status = bodyData.status;
+      if (bodyData.type !== undefined) updateData.type = bodyData.type;
+      if (bodyData.mainCategory !== undefined) updateData.mainCategory = bodyData.mainCategory;
+      if (bodyData.subCategory !== undefined) updateData.subCategory = bodyData.subCategory;
+      if (bodyData.dataCategory !== undefined) updateData.dataCategory = bodyData.dataCategory;
+      if (bodyData.logicFormula !== undefined) updateData.logicFormula = bodyData.logicFormula;
+      if (bodyData.targetUsers !== undefined) updateData.targetUsers = bodyData.targetUsers;
+      if (bodyData.relatedInsight !== undefined) updateData.relatedInsight = bodyData.relatedInsight;
+      if (bodyData.revenueCategory !== undefined) updateData.revenueCategory = bodyData.revenueCategory;
+      if (bodyData.iconType !== undefined) updateData.iconType = bodyData.iconType;
+      if (bodyData.relevancePolicy !== undefined) updateData.relevancePolicy = bodyData.relevancePolicy;
+      if (bodyData.relevanceScore !== undefined) updateData.relevanceScore = bodyData.relevanceScore;
+      if (bodyData.nextPolicy !== undefined) updateData.nextPolicy = bodyData.nextPolicy;
+      if (bodyData.nextValue !== undefined) updateData.nextValue = bodyData.nextValue;
+      if (bodyData.appLink !== undefined) updateData.appLink = bodyData.appLink;
+      if (bodyData.externalLink !== undefined) updateData.externalLink = bodyData.externalLink;
+      if (bodyData.teaserImage !== undefined) updateData.teaserImage = bodyData.teaserImage;
+      if (bodyData.maintenanceReason !== undefined) updateData.maintenanceReason = bodyData.maintenanceReason;
+      if (bodyData.remarks !== undefined) updateData.remarks = bodyData.remarks;
+      if (bodyData.updatedBy !== undefined) updateData.updatedBy = bodyData.updatedBy;
+      
+      // Handle numeric fields
+      if (bodyData.displayCount !== undefined) updateData.displayCount = Number(bodyData.displayCount);
+      if (bodyData.selectCount !== undefined) updateData.selectCount = Number(bodyData.selectCount);
+      if (bodyData.score !== undefined) updateData.score = bodyData.score ? String(bodyData.score) : null;
+      
+      // Handle array fields
+      if (bodyData.targetBanks !== undefined) {
+        updateData.targetBanks = Array.isArray(bodyData.targetBanks) ? bodyData.targetBanks : [];
+      }
+      if (bodyData.targetTables !== undefined) {
+        updateData.targetTables = Array.isArray(bodyData.targetTables) ? bodyData.targetTables : [];
+      }
+      if (bodyData.storyImages !== undefined) {
+        updateData.storyImages = Array.isArray(bodyData.storyImages) 
+          ? bodyData.storyImages.filter((img: string) => img && img.trim() !== '') 
+          : [];
+      }
+      
+      // Handle date fields carefully
+      if (bodyData.startDate !== undefined) updateData.startDate = formatDateValue(bodyData.startDate);
+      if (bodyData.updateDate !== undefined) updateData.updateDate = formatDateValue(bodyData.updateDate);
+      if (bodyData.endDate !== undefined) updateData.endDate = formatDateValue(bodyData.endDate);
+      if (bodyData.maintenanceDate !== undefined) {
+        updateData.maintenanceDate = formatDateValue(bodyData.maintenanceDate) || '2099-12-31';
+      }
+      
+      // Don't manually set updatedAt - let the database handle it
       
       const result = await db
         .update(insights)
@@ -151,7 +208,7 @@ export const insightRoutes = new Elysia({ prefix: '/api/insights' })
       }
 
       const text = await file.text();
-      const lines = text.split('\n').filter(line => line.trim());
+      const lines = text.split('\n').filter((line: string) => line.trim());
       
       if (lines.length < 2) {
         set.status = 400;
@@ -203,7 +260,7 @@ export const insightRoutes = new Elysia({ prefix: '/api/insights' })
           
           // Parse the CSV row
           const insightData = {
-            creationNumber: parseInt(values[1]) || 1,
+            creationNumber: parseInt(values[1] || '1') || 1,
             subject: values[2] || '',
             insightId: values[3] || '',
             status: values[4] || '',
@@ -214,9 +271,9 @@ export const insightRoutes = new Elysia({ prefix: '/api/insights' })
             mainCategory: values[9] || '',
             subCategory: values[10] || '',
             dataCategory: values[11] || '',
-            targetBanks: safeJSONParse(values[12], []),
+            targetBanks: safeJSONParse(values[12] || '[]', []),
             logicFormula: values[13] || '',
-            targetTables: safeJSONParse(values[14], []),
+            targetTables: safeJSONParse(values[14] || '[]', []),
             targetUsers: values[15] || '',
             relatedInsight: values[16] || '',
             revenueCategory: values[17] || '',
@@ -224,14 +281,14 @@ export const insightRoutes = new Elysia({ prefix: '/api/insights' })
             score: values[19] || '',
             relevancePolicy: values[20] || '',
             relevanceScore: values[21] || '',
-            displayCount: parseInt(values[22]) || 1,
-            selectCount: parseInt(values[23]) || 1,
+            displayCount: parseInt(values[22] || '1') || 1,
+            selectCount: parseInt(values[23] || '1') || 1,
             nextPolicy: values[24] || '',
             nextValue: values[25] || '',
             appLink: values[26] || '',
             externalLink: values[27] || '',
             teaserImage: values[28] || null,
-            storyImages: safeJSONParse(values[29], []),
+            storyImages: safeJSONParse(values[29] || '[]', []),
             maintenanceDate: values[30] || '2099-12-31',
             maintenanceReason: values[31] || '',
             remarks: values[32] || '',

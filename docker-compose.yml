@@ -22,7 +22,7 @@ services:
     container_name: insight-manager-app
     restart: unless-stopped
     ports:
-      - "80:3000"
+      - "8080:3000"
     environment:
       DB_HOST: db
       DB_PORT: 5432
