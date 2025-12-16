@@ -59,15 +59,17 @@ const App: React.FC = () => {
   };
 
   const loadInsights = async (params = searchParams) => {
-    const queryParams = new URLSearchParams();
+    // Create query string manually to avoid URLSearchParams issues in server environment
+    const queryParts: string[] = [];
     Object.entries(params).forEach(([key, value]) => {
       if (Array.isArray(value)) {
-        value.forEach(v => v && queryParams.append(key, v));
+        value.forEach(v => v && queryParts.push(`${encodeURIComponent(key)}=${encodeURIComponent(v)}`));
       } else if (value) {
-        queryParams.append(key, value as string);
+        queryParts.push(`${encodeURIComponent(key)}=${encodeURIComponent(value as string)}`);
       }
     });
-    const res = await fetch(`/api/insights?${queryParams.toString()}`);
+    const queryString = queryParts.join('&');
+    const res = await fetch(`/api/insights${queryString ? '?' + queryString : ''}`);
     const data = await res.json();
     setInsights(data);
   };
