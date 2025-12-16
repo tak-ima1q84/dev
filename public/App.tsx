@@ -206,6 +206,19 @@ const InsightList: React.FC<{
     return masters.filter(m => m.categoryKey === categoryKey);
   };
 
+  // Helper function to get Japanese label from master data
+  const getMasterLabel = (categoryKey: string, value: string) => {
+    const option = masters.find(m => m.categoryKey === categoryKey && m.optionValue === value);
+    return option ? option.optionLabel : value;
+  };
+
+  // Helper function to get Japanese labels for array values (like targetBanks)
+  const getMasterLabels = (categoryKey: string, values: string[]) => {
+    if (!values || !Array.isArray(values)) return 'なし';
+    const labels = values.map(value => getMasterLabel(categoryKey, value));
+    return labels.join(', ');
+  };
+
   const handleCSVImport = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -466,11 +479,11 @@ const InsightList: React.FC<{
               <td>{insight.creationNumber}</td>
               <td onClick={() => onSelect(insight)} style={{ cursor: 'pointer' }}>{insight.subject}</td>
               <td>{insight.insightId}</td>
-              <td>{insight.status}</td>
-              <td>{insight.type}</td>
-              <td>{insight.mainCategory}</td>
+              <td>{getMasterLabel('status', insight.status)}</td>
+              <td>{getMasterLabel('insight_type', insight.type)}</td>
+              <td>{getMasterLabel('main_category', insight.mainCategory)}</td>
               <td>{insight.subCategory}</td>
-              <td>{insight.dataCategory}</td>
+              <td>{getMasterLabel('data_category', insight.dataCategory)}</td>
               <td>{insight.maintenanceDate}</td>
               <td>
                 <button onClick={(e) => { e.stopPropagation(); onSelect(insight); }} style={{ marginRight: '0.5rem' }}>
@@ -507,6 +520,19 @@ const InsightDetail: React.FC<{
 
   const getMasterOptions = (categoryKey: string) => {
     return masters.filter(m => m.categoryKey === categoryKey);
+  };
+
+  // Helper function to get Japanese label from master data
+  const getMasterLabel = (categoryKey: string, value: string) => {
+    const option = masters.find(m => m.categoryKey === categoryKey && m.optionValue === value);
+    return option ? option.optionLabel : value;
+  };
+
+  // Helper function to get Japanese labels for array values (like targetBanks)
+  const getMasterLabels = (categoryKey: string, values: string[]) => {
+    if (!values || !Array.isArray(values)) return 'なし';
+    const labels = values.map(value => getMasterLabel(categoryKey, value));
+    return labels.join(', ');
   };
 
   const handleUpdate = async (e: React.FormEvent) => {
@@ -583,27 +609,27 @@ const InsightDetail: React.FC<{
           <label>作成番号: {insight.creationNumber}</label>
           <label>件名: {insight.subject}</label>
           <label>ID: {insight.insightId}</label>
-          <label>ステータス: {insight.status}</label>
+          <label>ステータス: {getMasterLabel('status', insight.status)}</label>
           <label>配信開始日: {insight.startDate}</label>
           <label>更新日: {insight.updateDate}</label>
           <label>配信停止日: {insight.endDate}</label>
-          <label>タイプ: {insight.type}</label>
-          <label>メインカテゴリ: {insight.mainCategory}</label>
+          <label>タイプ: {getMasterLabel('insight_type', insight.type)}</label>
+          <label>メインカテゴリ: {getMasterLabel('main_category', insight.mainCategory)}</label>
           <label>サブカテゴリ: {insight.subCategory}</label>
-          <label>データカテゴリ: {insight.dataCategory}</label>
-          <label>金融データ利用銀行 (l1): {insight.targetBanks ? (Array.isArray(insight.targetBanks) ? insight.targetBanks.join(', ') : insight.targetBanks) : 'なし'}</label>
+          <label>データカテゴリ: {getMasterLabel('data_category', insight.dataCategory)}</label>
+          <label>金融データ利用銀行 (l1): {getMasterLabels('target_banks', insight.targetBanks)}</label>
           <label>表示ロジック (m1-1): {insight.logicFormula}</label>
-          <label>使用データテーブル (m1-2): {insight.targetTables ? (Array.isArray(insight.targetTables) ? insight.targetTables.join(', ') : insight.targetTables) : 'なし'}</label>
+          <label>使用データテーブル (m1-2): {getMasterLabels('target_tables', insight.targetTables)}</label>
           <label>対象ユーザー: {insight.targetUsers}</label>
           <label>関連インサイト: {insight.relatedInsight}</label>
-          <label>収益カテゴリ: {insight.revenueCategory}</label>
-          <label>アイコンタイプ: {insight.iconType}</label>
+          <label>収益カテゴリ: {getMasterLabel('revenue_category', insight.revenueCategory)}</label>
+          <label>アイコンタイプ: {getMasterLabel('icon_type', insight.iconType)}</label>
           <label>スコア: {insight.score}</label>
-          <label>関連性ポリシー: {insight.relevancePolicy}</label>
+          <label>関連性ポリシー: {getMasterLabel('relevance_policy', insight.relevancePolicy)}</label>
           <label>関連性スコア: {insight.relevanceScore}</label>
           <label>表示回数: {insight.displayCount}</label>
           <label>選択回数: {insight.selectCount}</label>
-          <label>次回表示ポリシー: {insight.nextPolicy}</label>
+          <label>次回表示ポリシー: {getMasterLabel('next_policy', insight.nextPolicy)}</label>
           <label>次回表示設定値: {insight.nextValue}</label>
           <label>アプリ内遷移先: {insight.appLink}</label>
           <label>外部遷移先: {insight.externalLink}</label>
@@ -1064,6 +1090,12 @@ const InsightForm: React.FC<{
 
   const getMasterOptions = (categoryKey: string) => {
     return masters.filter(m => m.categoryKey === categoryKey);
+  };
+
+  // Helper function to get Japanese label from master data
+  const getMasterLabel = (categoryKey: string, value: string) => {
+    const option = masters.find(m => m.categoryKey === categoryKey && m.optionValue === value);
+    return option ? option.optionLabel : value;
   };
 
   return (
