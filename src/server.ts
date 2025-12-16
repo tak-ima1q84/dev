@@ -14,6 +14,12 @@ const app = new Elysia()
       secret: process.env.JWT_SECRET || 'your-secret-key',
     })
   )
+  // Health check endpoint
+  .get('/health', () => ({ 
+    status: 'healthy', 
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime()
+  }))
   .use(authRoutes)
   .use(insightRoutes)
   .use(masterRoutes)
